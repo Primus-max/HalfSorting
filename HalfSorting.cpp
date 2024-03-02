@@ -56,22 +56,29 @@ void PrintArray(T arr[], int size) {
 
 template<typename T>
 void HalfSorting(T arr[], int size) {
-    for (size_t j = size - 1; j > 0; --j)
-    {
-        for (size_t i = 0; i < j; ++i)
-        {
-            T temp = 0;
-            if (i < size/2 && arr[i] > arr[i + 1] ) {
-                temp = arr[i];
-                arr[i] = arr[i + 1];
-                arr[i + 1] = temp;
-            }
-            if (i > size / 2 && arr[i] < arr[i + 1]) {
-                temp = arr[i];
-                arr[i] = arr[i + 1];
-                arr[i + 1] = temp;
-            }
+    int middle = size / 2;
 
+    // Сортировка первой половины по убыванию 
+    for (int i = 1; i < middle; ++i) {
+        T key = arr[i];
+        int j = i - 1;
+
+        while (j >= 0 && arr[j] < key) {
+            arr[j + 1] = arr[j];
+            --j;
         }
+        arr[j + 1] = key;
+    }
+
+    // Сортировка второй половины по возрастанию
+    for (int i = middle + 1; i < size; ++i) {
+        T key = arr[i];
+        int j = i - 1;
+
+        while (j >= middle && arr[j] > key) {
+            arr[j + 1] = arr[j];
+            --j;
+        }
+        arr[j + 1] = key;
     }
 };
